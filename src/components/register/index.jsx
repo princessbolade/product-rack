@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Input,
   Modal,
@@ -13,13 +15,22 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import useForm from "../../hooks/useform";
 
 function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [value, setValue] = useForm({ fullname: "", email: "", password: "" });
+  const [isError, setIsError] = useState(false);
 
   const initialRef = React.useRef();
   const finalRef = React.useRef();
+
+  const onSubmit = (e) => {
+    const isError =
+      value.fullname === "" || value.email === "" || value.password === "";
+    setIsError(isError);
+  };
   return (
     <Box>
       <Button padding={"12px 26px"} colorScheme="green" onClick={onOpen}>
@@ -38,19 +49,64 @@ function Register() {
           <ModalBody>
             <FormControl>
               <FormLabel>Full Name</FormLabel>
-              <Input placeholder="Full Name" />
+              <Input
+                name="fullname"
+                type="text"
+                value={value.fullname}
+                onChange={setValue}
+                placeholder="Full Name"
+              />
+              {!isError ? (
+                <FormHelperText color={"green"} pt={"3px"}>
+                  Enter your full name
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage color={"red.800"}>
+                  This is a required field
+                </FormErrorMessage>
+              )}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Email Address</FormLabel>
-              <Input placeholder="Email Address" />
+              <Input
+                name="email"
+                type="email"
+                value={value.email}
+                onChange={setValue}
+                placeholder="Email Address"
+              />
+              {!isError ? (
+                <FormHelperText color={"green"} pt={"3px"}>
+                  Enter your email address
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage color={"red.800"}>
+                  This is a required field
+                </FormErrorMessage>
+              )}
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
-              <Input placeholder="Password" />
+              <Input
+                name="password"
+                type="text"
+                value={value.password}
+                onChange={setValue}
+                placeholder="Password"
+              />
+              {!isError ? (
+                <FormHelperText color={"green"} pt={"3px"}>
+                  Enter your password
+                </FormHelperText>
+              ) : (
+                <FormHelperText color={"red.800"}>
+                  This is a required field
+                </FormHelperText>
+              )}
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme={"green"} mr={3}>
+            <Button onClick={onSubmit} colorScheme={"green"} mr={3}>
               Submit
             </Button>
             <Button colorScheme={"green"} onClick={onClose}>
