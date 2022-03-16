@@ -17,8 +17,10 @@ import {
 } from "@chakra-ui/react";
 import useForm from "../../hooks/useform";
 import React, { useState } from "react";
+import auth from '../../auth'
 
 function Login() {
+  const {signIn} = auth
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useForm({ username: "", password: "" });
   const [isError, setIsError] = useState(false);
@@ -28,7 +30,14 @@ function Login() {
 
   const onSubmit = () => {
     const isError = value.username === "" || value.password === "";
-    setIsError(isError);
+    if(isError){
+       setIsError(isError);
+    }
+    else{
+      setIsError(false);
+      signIn(value, "POST")
+    }
+   
   };
   return (
     <Box>
@@ -60,7 +69,7 @@ function Login() {
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
               <Input
-                type="text"
+                type="password"
                 name="password"
                 value={value.password}
                 onChange={setValue}

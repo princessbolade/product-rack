@@ -1,4 +1,4 @@
-const url = process.env.API_URL;
+const url = "https://bookshelf-api-1.herokuapp.com/api";
 
 async function UrlClient(endpoint, data, method) {
   const config = {
@@ -7,7 +7,7 @@ async function UrlClient(endpoint, data, method) {
     headers: { "Content-Type": "application/json" },
   };
 
-  const response = await fetch(`${url}/ ${endpoint}`, config);
+  const response = await fetch(`${url}/auth/${endpoint}`, config);
   if (response.ok) {
     const data = response.json();
     return data;
@@ -39,3 +39,5 @@ async function signUp(body, method) {
 async function logOut() {
   return localStorage.removeItem(localStorageKey);
 }
+
+export default { getToken, signIn, signUp, logOut, localStorageKey };

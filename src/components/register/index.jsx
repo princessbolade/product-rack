@@ -17,10 +17,18 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import useForm from "../../hooks/useform";
+import auth from "../../auth";
 
 function Register() {
+  const { signUp } = auth;
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [value, setValue] = useForm({ fullname: "", email: "", password: "" });
+  const [value, setValue] = useForm({
+    fullname: "",
+    username: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+  });
   const [isError, setIsError] = useState(false);
 
   const initialRef = React.useRef();
@@ -28,8 +36,13 @@ function Register() {
 
   const onSubmit = (e) => {
     const isError =
-      value.fullname === "" || value.email === "" || value.password === "";
-    setIsError(isError);
+      value.username === "" || value.email === "" || value.password === "";
+    if (isError) {
+      setIsError(isError);
+    } else {
+      setIsError(false);
+      signUp(value, "POST");
+    }
   };
   return (
     <Box>
@@ -54,9 +67,22 @@ function Register() {
                 type="text"
                 value={value.fullname}
                 onChange={setValue}
-                placeholder="Full Name"
+                placeholder="FullName"
               />
-            <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Full name' : 'This is a required field'}</FormHelperText>
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Fullname" : "This is a required field"}
+              </FormHelperText>
+              <FormLabel>Username</FormLabel>
+              <Input
+                name="username"
+                type="text"
+                value={value.username}
+                onChange={setValue}
+                placeholder="UserName"
+              />
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Username" : "This is a required field"}
+              </FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Email Address</FormLabel>
@@ -67,18 +93,35 @@ function Register() {
                 onChange={setValue}
                 placeholder="Email Address"
               />
-             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Email' : 'This is a required field'}</FormHelperText>
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Email" : "This is a required field"}
+              </FormHelperText>
+              <FormLabel>Phone Number</FormLabel>
+              <Input
+                name="phoneNumber"
+                type="text"
+                value={value.phoneNumber}
+                onChange={setValue}
+                placeholder="Phone Number"
+              />
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError
+                  ? "Enter your Phone number"
+                  : "This is a required field"}
+              </FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
               <Input
                 name="password"
-                type="text"
+                type="password"
                 value={value.password}
                 onChange={setValue}
                 placeholder="Password"
               />
-             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Password' : 'This is a required field'}</FormHelperText>
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Password" : "This is a required field"}
+              </FormHelperText>
             </FormControl>
           </ModalBody>
           <ModalFooter>
