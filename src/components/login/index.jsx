@@ -55,15 +55,7 @@ function Login() {
                 onChange={setValue}
                 placeholder="Username"
               />
-              {!isError ? (
-                <FormHelperText color={"green"} pt={"3px"}>
-                  Enter your username
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage color={"red.800"}>
-                  This is a required field
-                </FormErrorMessage>
-              )}
+             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Username' : 'This is a required field'}</FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
@@ -74,15 +66,7 @@ function Login() {
                 onChange={setValue}
                 placeholder="Password"
               />
-              {!isError ? (
-                <FormHelperText color={"green"} pt={"3px"}>
-                  Enter your password
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage color={"red.800"}>
-                  This is a required field
-                </FormErrorMessage>
-              )}
+              <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Password' : 'This is a required field'}</FormHelperText>
             </FormControl>
           </ModalBody>
           <ModalFooter>

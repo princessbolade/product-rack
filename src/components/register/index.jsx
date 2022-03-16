@@ -56,15 +56,7 @@ function Register() {
                 onChange={setValue}
                 placeholder="Full Name"
               />
-              {!isError ? (
-                <FormHelperText color={"green"} pt={"3px"}>
-                  Enter your full name
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage color={"red.800"}>
-                  This is a required field
-                </FormErrorMessage>
-              )}
+            <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Full name' : 'This is a required field'}</FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Email Address</FormLabel>
@@ -75,15 +67,7 @@ function Register() {
                 onChange={setValue}
                 placeholder="Email Address"
               />
-              {!isError ? (
-                <FormHelperText color={"green"} pt={"3px"}>
-                  Enter your email address
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage color={"red.800"}>
-                  This is a required field
-                </FormErrorMessage>
-              )}
+             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Email' : 'This is a required field'}</FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
@@ -94,15 +78,7 @@ function Register() {
                 onChange={setValue}
                 placeholder="Password"
               />
-              {!isError ? (
-                <FormHelperText color={"green"} pt={"3px"}>
-                  Enter your password
-                </FormHelperText>
-              ) : (
-                <FormHelperText color={"red.800"}>
-                  This is a required field
-                </FormHelperText>
-              )}
+             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Password' : 'This is a required field'}</FormHelperText>
             </FormControl>
           </ModalBody>
           <ModalFooter>
