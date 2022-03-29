@@ -41,7 +41,7 @@ function Login() {
     try {
       await signIn(value, "POST");
       const token = await getToken();
-      console.log(token);
+
       if (token) {
         return navigate("/shelf");
       }
