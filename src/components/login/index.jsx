@@ -13,32 +13,45 @@ import {
   ModalFooter,
   Button,
   FormHelperText,
-  FormErrorMessage,
 } from "@chakra-ui/react";
 import useForm from "../../hooks/useform";
 import React, { useState } from "react";
-import auth from '../../auth'
+import auth from "../../auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const {signIn} = auth
+  const { signIn, getToken } = auth;
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useForm({ username: "", password: "" });
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const intialRef = React.useRef();
   const finalRef = React.useRef();
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const isError = value.username === "" || value.password === "";
-    if(isError){
-       setIsError(isError);
+    if (isError) {
+      setIsError(isError);
+      return;
     }
-    else{
-      setIsError(false);
-      signIn(value, "POST")
+    setIsLoading(true);
+    setIsError(false);
+    try {
+      await signIn(value, "POST");
+      const token = await getToken();
+      console.log(token);
+      if (token) {
+        return navigate("/shelf");
+      }
+    } catch (error) {
+      console.log(error);
     }
-   
+    setIsLoading(false);
   };
+  if (isLoading) return "Authenticating";
+
   return (
     <Box>
       <Button padding={"12px 26px"} colorScheme={"green"} onClick={onOpen}>
@@ -64,7 +77,9 @@ function Login() {
                 onChange={setValue}
                 placeholder="Username"
               />
-             <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Username' : 'This is a required field'}</FormHelperText>
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Username" : "This is a required field"}
+              </FormHelperText>
             </FormControl>
             <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
@@ -75,7 +90,9 @@ function Login() {
                 onChange={setValue}
                 placeholder="Password"
               />
-              <FormHelperText color={!isError ? 'green' :'red.800'}>{!isError ? 'Enter your Password' : 'This is a required field'}</FormHelperText>
+              <FormHelperText color={!isError ? "green" : "red.800"}>
+                {!isError ? "Enter your Password" : "This is a required field"}
+              </FormHelperText>
             </FormControl>
           </ModalBody>
           <ModalFooter>

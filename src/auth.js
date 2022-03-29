@@ -23,7 +23,8 @@ async function getToken() {
 }
 
 function handleResponse(user) {
-  localStorage.setItem(localStorageKey, user.token);
+  localStorage.setItem(localStorageKey, user.accessToken);
+  localStorage.setItem("user", JSON.stringify(user.user.user));
   return user;
 }
 
