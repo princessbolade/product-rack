@@ -19,7 +19,7 @@ function AuthApp() {
     <Box mx={"auto"} maxW={"1440px"} py={"50px"}>
       <Flex alignItems={"center"} justifyContent={"flex-end"}>
         <Text>Welcome, {authUser.username}!</Text>
-        <Button colorScheme={"green"} ml={"50px"} onClick={logout()}>
+        <Button colorScheme={"green"} ml={"50px"} onClick={logout}>
           Logout
         </Button>
       </Flex>
