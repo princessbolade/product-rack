@@ -13,6 +13,7 @@ import {
   ModalFooter,
   Button,
   FormHelperText,
+  Spinner,
 } from "@chakra-ui/react";
 import useForm from "../../hooks/useform";
 import React, { useState } from "react";
@@ -50,7 +51,7 @@ function Login() {
     }
     setIsLoading(false);
   };
-  if (isLoading) return "Authenticating";
+  if (isLoading) return <Spinner />;
 
   return (
     <Box>

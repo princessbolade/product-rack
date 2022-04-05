@@ -21,7 +21,7 @@ function AuthApp() {
     <Box mx={"auto"} maxW={"1440px"} py={"50px"}>
       <Flex alignItems={"center"} justifyContent={"flex-end"}>
         <Text fontWeight={"bold"} fontSize="24px">
-          Welcome, {authUser.username}!
+          Welcome back, {authUser.username}
         </Text>
         <Button colorScheme={"green"} ml={"50px"} onClick={logout}>
           Logout
@@ -31,6 +31,8 @@ function AuthApp() {
         <Flex>
           <Box
             bg={"white"}
+            border={"2px"}
+            borderColor={"green.200"}
             padding={"20px 20px"}
             boxShadow={"base"}
             width={"100%"}
@@ -41,7 +43,11 @@ function AuthApp() {
                 <ListItem pt={"30px"}>
                   <Text
                     cursor={"pointer"}
-                    _hover={{ color: "green", bg: "gray.200" }}
+                    _hover={{
+                      color: "green",
+                      bg: "gray.200",
+                      padding: "10px 10px",
+                    }}
                   >
                     {i}
                   </Text>
